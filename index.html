@@ -7,18 +7,18 @@
     <style>
         * { box-sizing: border-box; font-family: "Pretendard Variable", Pretendard, -apple-system, sans-serif; }
         body {
-            background-color: #eeeeee;
-            margin: 0; padding: 20px;
+            background-color: #e4e4e4;
+            margin: 0; padding: 32px 24px;
             display: flex; flex-direction: column; align-items: center;
             min-width: 1280px;
         }
         .process-map {
             width: 1200px; height: 660px;
             position: relative;
-            background-color: #f5f5f5;
-            border-radius: 6px;
+            background-color: #f2f2f2;
+            border-radius: 10px;
             overflow: hidden;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+            box-shadow: 0 6px 24px rgba(0,0,0,0.10), 0 1px 4px rgba(0,0,0,0.06);
         }
         /* SVG 화살표 레이어 */
         .lines-layer {
@@ -30,13 +30,13 @@
         /* Customer / Vendor 컬럼 */
         .entity-column {
             position: absolute; top: 0; bottom: 0; width: 105px;
-            background-color: #d2d2d2;
+            background-color: #cacaca;
             display: flex; flex-direction: column;
             justify-content: space-between; align-items: center;
             padding: 30px 0; z-index: 2;
         }
-        .entity-column.customer { left: 0; border-right: 1px solid #c0c0c0; }
-        .entity-column.vendor   { right: 0; border-left: 1px solid #c0c0c0; }
+        .entity-column.customer { left: 0; border-right: 1px solid #b8b8b8; }
+        .entity-column.vendor   { right: 0; border-left: 1px solid #b8b8b8; }
         .entity-title { font-size: 14px; font-weight: 700; color: #333; }
         .entity-label { font-size: 11px; font-weight: 500; color: #444; margin-top: 4px; }
         .entity-box { display: flex; flex-direction: column; align-items: center; }
@@ -44,11 +44,12 @@
         /* 모듈 블록 */
         .module-block {
             position: absolute;
-            background-color: #e1e1e1;
-            border-radius: 6px; padding: 12px;
+            background-color: #dedede;
+            border-radius: 8px; padding: 12px;
             cursor: pointer; transition: all 0.2s ease; z-index: 4;
+            border: 1px solid #cecece;
         }
-        .module-block:hover { background-color: #d6d6d6; box-shadow: inset 0 0 0 2px #999; }
+        .module-block:hover { background-color: #d4d4d4; box-shadow: inset 0 0 0 2px #aaa; }
         .module-name { font-size: 22px; font-weight: 700; color: #2c3e50; position: absolute; top: 12px; left: 16px; }
 
         /* 프로세스 노드 */
@@ -99,14 +100,14 @@
         }
 
         /* 블록 위치/크기 */
-        /* SD: left=105, top=15, w=225, h=400 */
-        #block-sd { top: 15px; left: 105px; width: 225px; height: 400px; }
-        /* PP: left=340, top=15, w=295, h=400 */
-        #block-pp { top: 15px; left: 340px; width: 295px; height: 400px; }
-        /* MM: left=645, top=15, w=445, h=400 */
-        #block-mm { top: 15px; left: 645px; width: 445px; height: 400px; }
-        /* FI: left=105, top=430, w=985, h=215 */
-        #block-fi { top: 430px; left: 105px; width: 985px; height: 215px; }
+        /* SD: left=110, top=15, w=225, h=400 */
+        #block-sd { top: 15px; left: 110px; width: 225px; height: 400px; }
+        /* PP: left=345, top=15, w=295, h=400 */
+        #block-pp { top: 15px; left: 345px; width: 295px; height: 400px; }
+        /* MM: left=650, top=15, w=440, h=400 */
+        #block-mm { top: 15px; left: 650px; width: 440px; height: 400px; }
+        /* FI: left=110, top=430, w=980, h=215 */
+        #block-fi { top: 430px; left: 110px; width: 980px; height: 215px; }
 
         /* 모달 */
         .modal-overlay {
@@ -190,142 +191,123 @@
         </defs>
 
         <!-- ── Customer → Bulk Sales Order (수평) ── -->
-        <!-- Customer 아이콘 중심 x≈52, Bulk SO left edge=125, 둘 다 y=88 -->
-        <line x1="105" y1="88" x2="125" y2="88"
+        <line x1="105" y1="88" x2="130" y2="88"
               stroke="#8e664a" stroke-width="1.5" fill="none" marker-end="url(#arr)"/>
 
         <!-- ── SD 내부 세로 흐름 ── -->
-        <!-- Bulk SO bot → Outbound Delivery top -->
-        <line x1="173" y1="111" x2="173" y2="145"
+        <line x1="178" y1="111" x2="178" y2="145"
               stroke="#8e664a" stroke-width="1.5" fill="none" marker-end="url(#arr)"/>
-        <!-- Outbound bot → Goods Issue top -->
-        <line x1="173" y1="191" x2="173" y2="220"
+        <line x1="178" y1="191" x2="178" y2="220"
               stroke="#8e664a" stroke-width="1.5" fill="none" marker-end="url(#arr)"/>
-        <!-- Goods Issue bot → Billing top -->
-        <line x1="173" y1="266" x2="173" y2="295"
+        <line x1="178" y1="266" x2="178" y2="295"
               stroke="#8e664a" stroke-width="1.5" fill="none" marker-end="url(#arr)"/>
         <!-- Billing bot → FI A/R -->
-        <line x1="173" y1="341" x2="173" y2="465"
+        <line x1="178" y1="341" x2="178" y2="465"
               stroke="#8e664a" stroke-width="1.5" fill="none" marker-end="url(#arr)"/>
 
         <!-- ── Bulk SO → circle MM (수평, y=88) ── -->
-        <!-- Bulk SO right=105+20+96=221, circle MM left=105+150=255, y=15+57+14=86 → circle top=57→abs y=86
-             circle top을 60으로 조정해서 abs y=15+60+14=89≈88 -->
-        <line x1="221" y1="89" x2="260" y2="89"
+        <line x1="226" y1="89" x2="260" y2="89"
               stroke="#8e664a" stroke-width="1.5" fill="none" marker-end="url(#arr)"/>
 
         <!-- ── circle MM → PP MRP ── -->
-        <path d="M288 89 L340 89 L340 158 L437 158"
+        <path d="M288 89 L345 89 L345 158 L442 158"
               stroke="#8e664a" stroke-width="1.5" fill="none" marker-end="url(#arr)"/>
 
         <!-- ── PP 내부 세로 흐름 ── -->
-        <!-- PIR → MRP -->
-        <line x1="485" y1="111" x2="485" y2="135"
+        <line x1="490" y1="111" x2="490" y2="135"
               stroke="#8e664a" stroke-width="1.5" fill="none" marker-end="url(#arr)"/>
-        <!-- MRP → Planned Order -->
-        <line x1="485" y1="181" x2="485" y2="213"
+        <line x1="490" y1="181" x2="490" y2="213"
               stroke="#8e664a" stroke-width="1.5" fill="none" marker-end="url(#arr)"/>
-        <!-- Planned Order → Production Order -->
-        <line x1="485" y1="269" x2="485" y2="280"
+        <line x1="490" y1="269" x2="490" y2="280"
               stroke="#8e664a" stroke-width="1.5" fill="none" marker-end="url(#arr)"/>
-        <!-- Production Order → Confirmation -->
-        <line x1="485" y1="326" x2="485" y2="360"
+        <line x1="490" y1="326" x2="490" y2="360"
               stroke="#8e664a" stroke-width="1.5" fill="none" marker-end="url(#arr)"/>
 
-        <!-- ── Planned Order → MM Purchase Requisition (오른쪽→위→오른쪽 진입) ── -->
-        <path d="M532 241 L645 241 L645 88 L755 88"
+        <!-- ── Planned Order → MM Purchase Requisition ── -->
+        <path d="M537 241 L650 241 L650 88 L760 88"
               stroke="#8e664a" stroke-width="1.5" fill="none" marker-end="url(#arr)"/>
 
         <!-- ── Goods Issue (SD) → S.Location (PP) ── -->
-        <path d="M221 243 L385 243 L385 363"
+        <path d="M226 243 L390 243 L390 363"
               stroke="#8e664a" stroke-width="1.5" fill="none" marker-end="url(#arr)"/>
 
         <!-- ── Confirmation → S.Location (PP, 왼쪽) ── -->
-        <line x1="437" y1="383" x2="420" y2="383"
+        <line x1="442" y1="383" x2="425" y2="383"
               stroke="#8e664a" stroke-width="1.5" fill="none" marker-end="url(#arr)"/>
-        <!-- ── S.Location(MM) → 아래로 꺾어서 Production Order→Confirmation 세로선 중간 T자 진입 ── -->
-        <path d="M705 318 L705 343 L485 343"
+        <!-- ── S.Location(MM) → Production Order→Confirmation 세로선 중간 T자 진입 ── -->
+        <path d="M710 318 L710 343 L490 343"
               stroke="#8e664a" stroke-width="1.5" fill="none" marker-end="url(#arr)"/>
 
-        <!-- ── Confirmation → FI GL (하단으로) ── -->
-        <line x1="485" y1="406" x2="485" y2="465"
-              stroke="#8e664a" stroke-width="1.5" fill="none" marker-end="url(#arr)"/>
+        <!-- Confirmation → FI GL 화살표 제거됨 -->
 
         <!-- ── MM 내부 세로 흐름 ── -->
-        <!-- Purchase Req → P/R Release -->
-        <line x1="803" y1="111" x2="803" y2="135"
+        <line x1="808" y1="111" x2="808" y2="135"
               stroke="#8e664a" stroke-width="1.5" fill="none" marker-end="url(#arr)"/>
-        <!-- P/R Release → Purchase Order -->
-        <line x1="803" y1="181" x2="803" y2="210"
+        <line x1="808" y1="181" x2="808" y2="210"
               stroke="#8e664a" stroke-width="1.5" fill="none" marker-end="url(#arr)"/>
-        <!-- Purchase Order → Goods Receipt -->
-        <line x1="803" y1="256" x2="803" y2="280"
+        <line x1="808" y1="256" x2="808" y2="280"
               stroke="#8e664a" stroke-width="1.5" fill="none" marker-end="url(#arr)"/>
-        <!-- Goods Receipt → Quality Inspection (수평 y=303) -->
-        <line x1="851" y1="303" x2="885" y2="303"
+        <!-- Goods Receipt → Quality Inspection -->
+        <line x1="856" y1="303" x2="890" y2="303"
               stroke="#8e664a" stroke-width="1.5" fill="none" marker-end="url(#arr)"/>
-        <!-- Goods Receipt → S.Location(MM) (수평 y=303, Goods Receipt 왼쪽에서 출발) -->
-        <line x1="755" y1="303" x2="740" y2="303"
+        <!-- Goods Receipt → S.Location(MM) -->
+        <line x1="760" y1="303" x2="745" y2="303"
               stroke="#8e664a" stroke-width="1.5" fill="none" marker-end="url(#arr)"/>
         <!-- S.Location(MM) ↔ Stock Transfer 양방향 수직 -->
-        <line x1="703" y1="284" x2="703" y2="253"
+        <line x1="708" y1="284" x2="708" y2="253"
               stroke="#8e664a" stroke-width="1.5" fill="none" marker-end="url(#arr)"/>
-        <line x1="703" y1="253" x2="703" y2="284"
+        <line x1="708" y1="253" x2="708" y2="284"
               stroke="#8e664a" stroke-width="1.5" fill="none" marker-end="url(#arr)"/>
-        <!-- Purchase Order → Stock Transfer 제거됨 -->
-        <!-- Quality Inspection → Invoice Verification (┘형: 수직 후 좌로 꺾음) -->
-        <!-- QI cx=933, bot y=326 → 내려가서 Invoice Verif cy=378 → 좌로 꺾어서 right=851 -->
-        <path d="M933 326 L933 378 L851 378"
+        <!-- Quality Inspection → Invoice Verification -->
+        <path d="M938 326 L938 378 L856 378"
               stroke="#8e664a" stroke-width="1.5" fill="none" marker-end="url(#arr)"/>
-        <!-- Quality Inspection → Goods Return Vendor (수평 y=303) -->
-        <!-- QI right=645+240+96=981, Vendor left=1095 -->
-        <line x1="981" y1="303" x2="1095" y2="303"
+        <!-- Quality Inspection → Goods Return Vendor -->
+        <line x1="986" y1="303" x2="1095" y2="303"
               stroke="#8e664a" stroke-width="1.5" fill="none" marker-end="url(#arr)"/>
-        <!-- Invoice Verification → FI A/P (수직 cx=803) -->
-        <!-- Invoice Verification bot: abs y=15+340+46=401, A/P top: abs y=430+35=465 -->
-        <line x1="803" y1="401" x2="803" y2="465"
+        <!-- Invoice Verification → FI A/P -->
+        <line x1="808" y1="401" x2="808" y2="465"
               stroke="#8e664a" stroke-width="1.5" fill="none" marker-end="url(#arr)"/>
 
         <!-- ── FI 내부 흐름 ── -->
         <!-- A/R → General Ledger -->
-        <line x1="251" y1="488" x2="415" y2="488"
+        <line x1="256" y1="488" x2="420" y2="488"
               stroke="#8e664a" stroke-width="1.5" fill="none" marker-end="url(#arr)"/>
-        <!-- A/P → General Ledger (A/P left=803, GL right=555) -->
-        <line x1="803" y1="488" x2="555" y2="488"
+        <!-- A/P → General Ledger -->
+        <line x1="808" y1="488" x2="560" y2="488"
               stroke="#8e664a" stroke-width="1.5" fill="none" marker-end="url(#arr)"/>
         <!-- A/R → Dunning -->
-        <line x1="203" y1="511" x2="203" y2="535"
+        <line x1="208" y1="511" x2="208" y2="535"
               stroke="#8e664a" stroke-width="1.5" fill="none" marker-end="url(#arr)"/>
         <!-- Dunning → Customer (좌측) -->
-        <line x1="155" y1="558" x2="105" y2="558"
+        <line x1="160" y1="558" x2="105" y2="558"
               stroke="#8e664a" stroke-width="1.5" fill="none" marker-end="url(#arr)"/>
         <!-- Customer → Incoming Pay -->
-        <line x1="105" y1="613" x2="155" y2="613"
+        <line x1="105" y1="613" x2="160" y2="613"
               stroke="#8e664a" stroke-width="1.5" fill="none" marker-end="url(#arr)"/>
         <!-- Incoming Pay → Clearing F-32 -->
-        <line x1="251" y1="613" x2="275" y2="613"
-              stroke="#8e664a" stroke-width="1.5" fill="none" marker-end="url(#arr)"/>
-        <!-- Clearing F-32 → BS/PL -->
-        <line x1="371" y1="613" x2="435" y2="613"
-              stroke="#8e664a" stroke-width="1.5" fill="none" marker-end="url(#arr)"/>
-        <!-- BS/PL → Clearing F-44 -->
-        <line x1="535" y1="613" x2="605" y2="613"
+        <line x1="256" y1="613" x2="280" y2="613"
               stroke="#8e664a" stroke-width="1.5" fill="none" marker-end="url(#arr)"/>
         <!-- Clearing F-44 → Outgoing Pay -->
-        <line x1="701" y1="613" x2="720" y2="613"
+        <line x1="706" y1="613" x2="725" y2="613"
               stroke="#8e664a" stroke-width="1.5" fill="none" marker-end="url(#arr)"/>
         <!-- Outgoing Pay → Vendor (우측) -->
-        <line x1="816" y1="613" x2="1095" y2="613"
+        <line x1="821" y1="613" x2="1095" y2="613"
               stroke="#8e664a" stroke-width="1.5" fill="none" marker-end="url(#arr)"/>
-        <!-- GL dashed ← Incoming Pay 오른쪽 상단 모서리 → GL 왼쪽 하단, 일직선 -->
-        <path d="M251 590 L415 511"
+        <!-- GL dashed ← Incoming Pay -->
+        <path d="M256 590 L420 511"
               stroke="#8e664a" stroke-width="1.3" stroke-dasharray="5,3" fill="none" marker-end="url(#arr-d)"/>
-        <!-- GL solid → BS/PL (실선) -->
-        <path d="M485 511 L485 590"
+        <!-- GL solid → BS/PL -->
+        <path d="M490 511 L490 590"
               stroke="#8e664a" stroke-width="1.5" fill="none" marker-end="url(#arr-d)"/>
-        <!-- GL dashed ← Outgoing Pay 왼쪽 상단 모서리 → GL 오른쪽 하단, 일직선 -->
-        <path d="M720 590 L555 511"
+        <!-- Clearing F-32 → GL -->
+        <path d="M376 613 L435 613 L435 511"
+              stroke="#8e664a" stroke-width="1.5" fill="none" marker-end="url(#arr)"/>
+        <!-- GL dashed ← Outgoing Pay -->
+        <path d="M725 590 L560 511"
               stroke="#8e664a" stroke-width="1.3" stroke-dasharray="5,3" fill="none" marker-end="url(#arr-d)"/>
+        <!-- Clearing F-44 → GL -->
+        <path d="M610 613 L545 613 L545 511"
+              stroke="#8e664a" stroke-width="1.5" fill="none" marker-end="url(#arr)"/>
     </svg>
 
     <!-- ══════════ Customer 컬럼 ══════════ -->
@@ -336,8 +318,8 @@
             <div style="font-size:30px;line-height:1;">👤</div>
             <div class="entity-label">Customer</div>
         </div>
-        <!-- 하단 Customer: Incoming Pay cy=613 → top=613-25=588 -->
-        <div class="entity-box" style="position:absolute;top:588px;left:0;right:0;align-items:center;">
+        <!-- 하단 Customer: Dunning cy=558, Incoming Pay cy=613 → 중간 y=586, top=561 -->
+        <div class="entity-box" style="position:absolute;top:561px;left:0;right:0;align-items:center;">
             <div style="font-size:30px;line-height:1;">👤</div>
             <div class="entity-label">Customer</div>
         </div>
@@ -386,11 +368,11 @@
     <!-- ══════════ PP 블록 ══════════ -->
     <div class="module-block" id="block-pp" onclick="openModule('PP')">
         <div class="module-name">PP</div>
-        <!-- PIR: top=50, left=97 → abs x=340+97+48=485, abs y=15+50+23=88 -->
+        <!-- PIR: top=50, left=97 → abs x=345+97+48=490, abs y=15+50+23=88 -->
         <div class="proc-node" style="top:50px;left:97px;z-index:15;">
             <div class="proc-name">PIR</div><div class="proc-cbo">CBO</div>
         </div>
-        <!-- MRP: top=120 -->
+        <!-- MRP: top=120, left=97 -->
         <div class="proc-node" style="top:120px;left:97px;">
             <div class="proc-name">MRP</div><div class="proc-cbo">CBO</div>
         </div>
@@ -467,11 +449,16 @@
         <div class="proc-node" style="top:35px;left:310px;width:140px;border-radius:20px;background:#e5e5e5;">
             <div class="proc-name" style="font-weight:600;">General Ledger</div><div class="proc-code">FS00</div>
         </div>
-        <!-- BS/PL: top=160, left=330 → abs cx=485,cy=613 left=435 right=535 -->
-        <div class="proc-node" style="top:160px;left:330px;width:100px;background:#e5e5e5;border-bottom:3px double #999;">
-            <div class="proc-name">BS/PL</div><div class="proc-cbo">CBO</div>
-        </div>
         <!-- A/P: moved outside to top layer -->
+        <!-- BS/PL: top=160, left=330 → abs cx=485,cy=613 left=435 right=535 -->
+        <div style="position:absolute;top:160px;left:330px;width:100px;height:46px;z-index:20;">
+            <svg width="100" height="46" viewBox="0 0 100 46" xmlns="http://www.w3.org/2000/svg">
+                <path d="M0 0 H100 V34 Q75 46 50 40 Q25 34 0 46 Z"
+                      fill="#eeeeee" stroke="#cdcdcd" stroke-width="1"/>
+                <text x="50" y="18" text-anchor="middle" font-size="10" fill="#222" font-family="sans-serif">BS/PL</text>
+                <text x="50" y="30" text-anchor="middle" font-size="8.5" fill="#b78a60" font-family="sans-serif">CBO</text>
+            </svg>
+        </div>
         <!-- Clearing F-44: top=160, left=500 → abs cx=105+500+48=653, cy=613 left=605 right=701 -->
         <div class="proc-node" style="top:160px;left:500px;">
             <div class="proc-name">Clearing</div><div class="proc-code">F-44</div>
@@ -491,7 +478,7 @@
     </div>
 </div>
 
-<div class="hint-text">💡 각 모듈 영역(SD, PP, MM, FI)을 클릭하면 세부 프로세스 다이어그램을 볼 수 있습니다.</div>
+<div class="hint-text">💡 각 모듈 영역(SD, PP, MM, FI)을 클릭하면 세부 프로세스를 볼 수 있습니다.</div>
 
 <!-- ══════════ 모달 ══════════ -->
 <div class="modal-overlay" id="moduleModal" onclick="closeModal()">
@@ -517,6 +504,7 @@ const SVG_SD = `
   .n{font-family:Pretendard,sans-serif;font-size:9.5px;fill:#666;}
   .a{stroke:#8e664a;stroke-width:1.5;fill:none;marker-end:url(#ma);}
 </style>
+<g transform="translate(91, 0)">
 <circle cx="120" cy="36" r="16" fill="#444"/>
 <ellipse cx="120" cy="62" rx="24" ry="13" fill="#444"/>
 <text x="120" y="90" class="l">Customer</text>
@@ -544,10 +532,11 @@ const SVG_SD = `
 <text x="437" y="296" class="n">Invoice</text>
 <circle cx="514" cy="304" r="24" fill="#b5b5b5"/>
 <text x="514" y="304" class="l" dominant-baseline="middle">FI</text>
+</g>
 </svg>`;
 
 const SVG_PP = `
-<svg viewBox="0 0 860 400" xmlns="http://www.w3.org/2000/svg">
+<svg viewBox="0 0 960 400" xmlns="http://www.w3.org/2000/svg">
 <defs>
   <marker id="ma" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
     <path d="M0 1.5 L9 5 L0 8.5z" fill="#8e664a"/>
@@ -559,52 +548,93 @@ const SVG_PP = `
   .n{font-family:Pretendard,sans-serif;font-size:9.5px;fill:#666;}
   .a{stroke:#8e664a;stroke-width:1.5;fill:none;marker-end:url(#ma);}
 </style>
-<circle cx="60" cy="200" r="26" fill="#b5b5b5"/>
-<text x="60" y="200" class="l" dominant-baseline="middle">SD</text>
-<line x1="86" y1="200" x2="120" y2="200" class="a"/>
-<rect x="20" y="70" width="100" height="48" rx="5" fill="#fff" stroke="#b78a60" stroke-width="1.4"/>
-<text x="70" y="90" class="l">* PIR</text>
-<text x="70" y="108" class="t">CBO</text>
-<line x1="120" y1="94" x2="158" y2="176" class="a"/>
-<rect x="120" y="176" width="100" height="48" rx="5" fill="#fff" stroke="#b78a60" stroke-width="1.4"/>
-<text x="170" y="196" class="l">MRP</text>
-<text x="170" y="213" class="t">CBO</text>
-<line x1="220" y1="200" x2="256" y2="200" class="a"/>
-<polygon points="292,172 336,200 292,228 248,200" fill="#e8e8e8" stroke="#bbb" stroke-width="1.4"/>
-<text x="292" y="196" class="l">Planned</text>
-<text x="292" y="208" class="l">Order</text>
-<text x="292" y="222" class="t" style="font-size:8px;">MD04</text>
-<line x1="292" y1="172" x2="292" y2="74" class="a"/>
-<circle cx="292" cy="50" r="24" fill="#b5b5b5"/>
-<text x="292" y="50" class="l" dominant-baseline="middle">MM</text>
-<text x="230" y="124" class="n">부족 자재 구매</text>
-<line x1="336" y1="200" x2="396" y2="200" class="a"/>
-<text x="362" y="192" class="n">자재 보유 시</text>
-<rect x="396" y="176" width="120" height="48" rx="5" fill="#fff" stroke="#b78a60" stroke-width="1.4"/>
-<text x="456" y="196" class="l">Production Order</text>
-<text x="456" y="213" class="t">CO40 → CO02</text>
-<line x1="316" y1="50" x2="580" y2="50" class="a"/>
-<line x1="580" y1="50" x2="580" y2="200" class="a"/>
-<line x1="580" y1="200" x2="516" y2="200" class="a"/>
-<text x="510" y="42" class="n">재고 투입</text>
-<line x1="456" y1="224" x2="456" y2="256" class="a"/>
-<circle cx="456" cy="268" r="14" fill="#666"/>
-<line x1="456" y1="282" x2="456" y2="314" class="a"/>
-<rect x="396" y="314" width="120" height="48" rx="5" fill="#fff" stroke="#cdcdcd" stroke-width="1.4"/>
-<text x="456" y="334" class="l">Confirmation</text>
-<text x="456" y="350" class="t">CO11N</text>
-<line x1="396" y1="338" x2="308" y2="338" class="a"/>
-<rect x="240" y="322" width="68" height="32" rx="4" fill="#bcbcbc" stroke="#a0a0a0" stroke-width="1.2"/>
-<text x="274" y="342" class="l" style="font-size:10px;">S.Location</text>
-<line x1="274" y1="322" x2="274" y2="268" class="a" style="stroke-dasharray:4,3;"/>
-<line x1="274" y1="268" x2="442" y2="268" class="a"/>
-<circle cx="160" cy="338" r="24" fill="#b5b5b5"/>
-<text x="160" y="338" class="l" dominant-baseline="middle">SD</text>
-<line x1="240" y1="338" x2="184" y2="338" class="a"/>
+
+<!-- PIR -->
+<rect x="20" y="172" width="100" height="48" rx="5" fill="#fff" stroke="#b78a60" stroke-width="1.4"/>
+<text x="70" y="192" class="l">* PIR</text>
+<text x="70" y="210" class="t">CBO</text>
+
+<!-- PIR → MRP -->
+<line x1="120" y1="196" x2="158" y2="196" class="a"/>
+
+<!-- MRP -->
+<rect x="158" y="172" width="100" height="48" rx="5" fill="#fff" stroke="#b78a60" stroke-width="1.4"/>
+<text x="208" y="192" class="l">MRP</text>
+<text x="208" y="210" class="t">CBO</text>
+
+<!-- SD 원 → MRP (위에서 아래로) -->
+<circle cx="208" cy="80" r="26" fill="#b5b5b5"/>
+<text x="208" y="80" class="l" dominant-baseline="middle">SD</text>
+<line x1="208" y1="106" x2="208" y2="172" class="a"/>
+
+<!-- MRP → Planned Order 마름모 -->
+<line x1="258" y1="196" x2="296" y2="196" class="a"/>
+
+<!-- Planned Order 마름모 -->
+<polygon points="340,168 384,196 340,224 296,196" fill="#e8e8e8" stroke="#bbb" stroke-width="1.4"/>
+<text x="340" y="191" class="l">Planned</text>
+<text x="340" y="204" class="l">Order</text>
+<text x="340" y="218" class="t" style="font-size:8px;">MD04</text>
+
+<!-- MM 원 (Planned Order 위) -->
+<circle cx="340" cy="66" r="26" fill="#b5b5b5"/>
+<text x="340" y="66" class="l" dominant-baseline="middle">MM</text>
+
+<!-- Planned Order → MM (위로, 부족 자재 구매) -->
+<line x1="340" y1="168" x2="340" y2="92" class="a"/>
+<text x="298" y="134" class="n">부족 자재</text>
+<text x="298" y="147" class="n">구매</text>
+
+<!-- Planned Order → Production Order (자재 보유 시) -->
+<line x1="384" y1="196" x2="440" y2="196" class="a"/>
+<text x="408" y="188" class="n">자재 보유 시</text>
+
+<!-- Production Order -->
+<rect x="440" y="172" width="140" height="48" rx="5" fill="#fff" stroke="#cdcdcd" stroke-width="1.4"/>
+<text x="510" y="192" class="l">Production Order</text>
+<text x="510" y="209" class="t">CO40 → CO02</text>
+
+<!-- Production Order → 검은점 -->
+<line x1="580" y1="196" x2="618" y2="196" class="a"/>
+
+<!-- 검은점 -->
+<circle cx="632" cy="196" r="14" fill="#555"/>
+
+<!-- MM 원에서 오른쪽으로 → 검은점으로 (재고 투입) -->
+<line x1="366" y1="66" x2="632" y2="66" style="stroke:#8e664a;stroke-width:1.5;fill:none;"/>
+<line x1="632" y1="66" x2="632" y2="182" class="a"/>
+<text x="530" y="58" class="n">재고 투입</text>
+
+<!-- 검은점 아래: 생산·실행 -->
+<text x="632" y="226" class="n" text-anchor="middle">생산·실행</text>
+
+<!-- 검은점 → Confirmation -->
+<line x1="646" y1="196" x2="700" y2="196" class="a"/>
+
+<!-- Confirmation -->
+<text x="790" y="158" class="n" text-anchor="middle">생산 실적 등록</text>
+<rect x="700" y="168" width="140" height="52" rx="5" fill="#fff" stroke="#cdcdcd" stroke-width="1.4"/>
+<text x="770" y="192" class="l" style="font-size:13px;font-weight:600;">Confirmation</text>
+<text x="770" y="210" class="t">CO11N</text>
+
+<!-- Confirmation → S.Location (아래로, 완제품 입고) -->
+<line x1="770" y1="220" x2="770" y2="268" class="a"/>
+<text x="810" y="248" class="n">완제품 입고</text>
+<text x="810" y="261" class="n">(G/R)</text>
+
+<!-- S.Location -->
+<rect x="726" y="268" width="88" height="34" rx="4" fill="#bcbcbc" stroke="#a0a0a0" stroke-width="1.2"/>
+<text x="770" y="289" class="l" style="font-size:10px;">S.Location</text>
+
+<!-- S.Location → SD 원 (왼쪽으로) -->
+<line x1="726" y1="285" x2="672" y2="285" class="a"/>
+<circle cx="648" cy="285" r="24" fill="#b5b5b5"/>
+<text x="648" y="285" class="l" dominant-baseline="middle">SD</text>
+
 </svg>`;
 
 const SVG_MM = `
-<svg viewBox="0 0 860 480" xmlns="http://www.w3.org/2000/svg">
+<svg viewBox="0 0 920 500" xmlns="http://www.w3.org/2000/svg">
 <defs>
   <marker id="ma" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
     <path d="M0 1.5 L9 5 L0 8.5z" fill="#8e664a"/>
@@ -616,67 +646,110 @@ const SVG_MM = `
   .n{font-family:Pretendard,sans-serif;font-size:9.5px;fill:#666;}
   .a{stroke:#8e664a;stroke-width:1.5;fill:none;marker-end:url(#ma);}
 </style>
-<rect x="30" y="20" width="100" height="46" rx="5" fill="#ddd" stroke="#bbb" stroke-width="1.3"/>
-<text x="80" y="39" class="l">MRP</text>
-<text x="80" y="55" class="n" text-anchor="middle">(from PP)</text>
-<line x1="80" y1="66" x2="80" y2="94" class="a"/>
-<rect x="30" y="94" width="100" height="46" rx="5" fill="#ddd" stroke="#bbb" stroke-width="1.3"/>
-<text x="80" y="120" class="l">Planned Order</text>
-<line x1="80" y1="140" x2="80" y2="168" class="a"/>
-<text x="104" y="160" class="n">자재 구매</text>
-<rect x="22" y="168" width="115" height="52" rx="5" fill="#fff" stroke="#b78a60" stroke-width="1.4"/>
-<text x="79" y="188" class="l">Purchase</text>
-<text x="79" y="203" class="l">Requisition</text>
-<text x="79" y="217" class="t">ME51N</text>
-<line x1="137" y1="194" x2="188" y2="194" class="a"/>
-<rect x="188" y="168" width="105" height="52" rx="5" fill="#fff" stroke="#cdcdcd" stroke-width="1.4"/>
-<text x="240" y="189" class="l">P/R Release</text>
-<text x="240" y="206" class="t">ME54N</text>
-<line x1="293" y1="194" x2="340" y2="194" class="a"/>
-<rect x="340" y="168" width="100" height="52" rx="5" fill="#e8e8e8" stroke="#bbb" stroke-width="1.3"/>
-<text x="390" y="194" class="l">Info Record</text>
-<line x1="440" y1="194" x2="490" y2="194" class="a"/>
-<rect x="490" y="168" width="115" height="52" rx="5" fill="#fff" stroke="#cdcdcd" stroke-width="1.4"/>
-<text x="547" y="189" class="l">Purchase Order</text>
-<text x="547" y="206" class="t">ME21N</text>
-<line x1="547" y1="220" x2="547" y2="256" class="a"/>
-<rect x="490" y="256" width="115" height="52" rx="5" fill="#fff" stroke="#cdcdcd" stroke-width="1.4"/>
-<text x="547" y="276" class="l">Goods Receipt</text>
-<text x="547" y="293" class="t">MIGO</text>
-<line x1="490" y1="282" x2="434" y2="282" class="a"/>
-<rect x="320" y="256" width="114" height="52" rx="5" fill="#fff" stroke="#b78a60" stroke-width="1.4"/>
-<text x="377" y="276" class="l">Quality</text>
-<text x="377" y="291" class="l">Inspection</text>
-<text x="377" y="305" class="t">CBO</text>
-<line x1="320" y1="295" x2="264" y2="295" class="a"/>
-<text x="288" y="287" class="n">합격 시</text>
-<rect x="196" y="280" width="68" height="32" rx="4" fill="#bcbcbc" stroke="#a0a0a0" stroke-width="1.2"/>
-<text x="230" y="300" class="l" style="font-size:10px;">S.Location</text>
-<line x1="320" y1="265" x2="264" y2="248" class="a"/>
-<text x="284" y="256" class="n">불합격 시</text>
-<rect x="150" y="230" width="114" height="46" rx="5" fill="#fff" stroke="#cdcdcd" stroke-width="1.4"/>
-<text x="207" y="249" class="l">Goods Return</text>
-<text x="207" y="264" class="t">MIGO</text>
-<line x1="196" y1="296" x2="90" y2="296" class="a"/>
-<line x1="90" y1="296" x2="90" y2="360" class="a"/>
-<circle cx="90" cy="382" r="24" fill="#b5b5b5"/>
-<text x="90" y="382" class="l" dominant-baseline="middle">PP</text>
-<line x1="547" y1="308" x2="547" y2="344" class="a"/>
-<rect x="490" y="344" width="115" height="52" rx="5" fill="#fff" stroke="#cdcdcd" stroke-width="1.4"/>
-<text x="547" y="364" class="l">Invoice Verification</text>
-<text x="547" y="381" class="t">MIRO</text>
-<line x1="547" y1="396" x2="547" y2="428" class="a"/>
-<circle cx="547" cy="452" r="24" fill="#b5b5b5"/>
-<text x="547" y="452" class="l" dominant-baseline="middle">FI</text>
-<rect x="640" y="256" width="105" height="52" rx="5" fill="#fff" stroke="#b78a60" stroke-width="1.4"/>
-<text x="692" y="276" class="l">Stock Transfer</text>
-<text x="692" y="291" class="l">Order</text>
-<text x="692" y="305" class="t">CBO</text>
-<line x1="605" y1="282" x2="640" y2="282" class="a"/>
+
+<!-- 왼쪽 세로 흐름: MRP → Planned Order → Purchase Requisition → P/R Release -->
+<!-- MRP (from PP) -->
+<rect x="30" y="20" width="106" height="46" rx="5" fill="#ddd" stroke="#bbb" stroke-width="1.3"/>
+<text x="83" y="40" class="l">MRP</text>
+<text x="83" y="56" class="n" text-anchor="middle">(from PP)</text>
+<!-- MRP → Planned Order -->
+<line x1="83" y1="66" x2="83" y2="96" class="a"/>
+<!-- Planned Order -->
+<rect x="30" y="96" width="106" height="52" rx="5" fill="#ddd" stroke="#bbb" stroke-width="1.3"/>
+<text x="83" y="118" class="l">Planned</text>
+<text x="83" y="133" class="l">Order</text>
+<!-- Planned Order → Purchase Requisition -->
+<line x1="83" y1="148" x2="83" y2="178" class="a"/>
+<text x="107" y="169" class="n">자재 구매</text>
+<!-- Purchase Requisition -->
+<rect x="22" y="178" width="122" height="54" rx="5" fill="#fff" stroke="#cdcdcd" stroke-width="1.4"/>
+<text x="83" y="198" class="l">Purchase</text>
+<text x="83" y="213" class="l">Requisition</text>
+<text x="83" y="227" class="t">ME51N</text>
+<!-- Purchase Requisition → P/R Release -->
+<line x1="83" y1="232" x2="83" y2="262" class="a"/>
+<!-- P/R Release -->
+<rect x="22" y="262" width="122" height="48" rx="5" fill="#fff" stroke="#cdcdcd" stroke-width="1.4"/>
+<text x="83" y="282" class="l">P/R Release</text>
+<text x="83" y="298" class="t">ME54N</text>
+
+<!-- P/R Release → Info Record (수평 흐름 시작) -->
+<line x1="144" y1="286" x2="188" y2="286" class="a"/>
+
+<!-- Info Record -->
+<rect x="188" y="262" width="96" height="48" rx="4" fill="#e8e8e8" stroke="#bbb" stroke-width="1.3"/>
+<text x="236" y="286" class="l">Info</text>
+<text x="236" y="300" class="l">Record</text>
+
+<!-- Info Record → Purchase Order -->
+<line x1="284" y1="286" x2="322" y2="286" class="a"/>
+
+<!-- Purchase Order -->
+<rect x="322" y="262" width="114" height="48" rx="5" fill="#fff" stroke="#cdcdcd" stroke-width="1.4"/>
+<text x="379" y="282" class="l">Purchase Order</text>
+<text x="379" y="298" class="t">ME21N</text>
+
+<!-- Purchase Order → Goods Receipt -->
+<line x1="436" y1="286" x2="474" y2="286" class="a"/>
+
+<!-- Goods Receipt -->
+<rect x="474" y="262" width="114" height="48" rx="5" fill="#fff" stroke="#cdcdcd" stroke-width="1.4"/>
+<text x="531" y="282" class="l">Goods Receipt</text>
+<text x="531" y="298" class="t">MIGO</text>
+
+<!-- Goods Receipt → Quality Inspection -->
+<line x1="588" y1="286" x2="626" y2="286" class="a"/>
+
+<!-- Quality Inspection -->
+<rect x="626" y="262" width="114" height="52" rx="5" fill="#fff" stroke="#b78a60" stroke-width="1.4"/>
+<text x="683" y="280" class="l">Quality</text>
+<text x="683" y="295" class="l">Inspection</text>
+<text x="683" y="310" class="t">CBO</text>
+
+<!-- Quality Inspection → 불합격 → Goods Return (위로) -->
+<line x1="683" y1="262" x2="683" y2="226" class="a"/>
+<text x="694" y="247" class="n">불합격 시</text>
+<!-- Goods Return -->
+<rect x="626" y="178" width="114" height="48" rx="5" fill="#fff" stroke="#cdcdcd" stroke-width="1.4"/>
+<text x="683" y="198" class="l">Goods Return</text>
+<text x="683" y="214" class="t">MIGO</text>
+
+<!-- Quality Inspection → 합격 → S.Location (오른쪽) -->
+<line x1="740" y1="286" x2="788" y2="286" class="a"/>
+<text x="750" y="278" class="n">합격 시</text>
+<!-- S.Location -->
+<rect x="788" y="270" width="78" height="32" rx="4" fill="#bcbcbc" stroke="#a0a0a0" stroke-width="1.2"/>
+<text x="827" y="290" class="l" style="font-size:10px;">S.Location</text>
+
+<!-- S.Location → PP (위로) -->
+<line x1="827" y1="270" x2="827" y2="168" class="a"/>
+<circle cx="827" cy="144" r="24" fill="#b5b5b5"/>
+<text x="827" y="144" class="l" dominant-baseline="middle">PP</text>
+
+<!-- S.Location → Stock Transfer Order (아래로) -->
+<line x1="827" y1="302" x2="827" y2="340" class="a"/>
+<!-- Stock Transfer Order -->
+<rect x="770" y="340" width="114" height="52" rx="5" fill="#fff" stroke="#b78a60" stroke-width="1.4"/>
+<text x="827" y="358" class="l">Stock Transfer</text>
+<text x="827" y="373" class="l">Order</text>
+<text x="827" y="387" class="t">CBO</text>
+
+<!-- Goods Receipt → Invoice Verification (아래로) -->
+<line x1="531" y1="310" x2="531" y2="348" class="a"/>
+<!-- Invoice Verification -->
+<rect x="474" y="348" width="114" height="52" rx="5" fill="#fff" stroke="#cdcdcd" stroke-width="1.4"/>
+<text x="531" y="368" class="l">Invoice</text>
+<text x="531" y="383" class="l">Verification</text>
+<text x="531" y="397" class="t">MIRO</text>
+<!-- Invoice Verification → FI -->
+<line x1="531" y1="400" x2="531" y2="438" class="a"/>
+<circle cx="531" cy="462" r="24" fill="#b5b5b5"/>
+<text x="531" y="462" class="l" dominant-baseline="middle">FI</text>
+
 </svg>`;
 
 const SVG_FI = `
-<svg viewBox="0 0 860 430" xmlns="http://www.w3.org/2000/svg">
+<svg viewBox="0 0 920 460" xmlns="http://www.w3.org/2000/svg">
 <defs>
   <marker id="ma" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
     <path d="M0 1.5 L9 5 L0 8.5z" fill="#8e664a"/>
@@ -692,57 +765,119 @@ const SVG_FI = `
   .a{stroke:#8e664a;stroke-width:1.5;fill:none;marker-end:url(#ma);}
   .ad{stroke:#8e664a;stroke-width:1.3;fill:none;stroke-dasharray:5,3;marker-end:url(#md);}
 </style>
-<circle cx="200" cy="42" r="26" fill="#b5b5b5"/>
-<text x="200" y="42" class="l" dominant-baseline="middle">SD</text>
-<circle cx="660" cy="42" r="26" fill="#b5b5b5"/>
-<text x="660" y="42" class="l" dominant-baseline="middle">MM</text>
-<line x1="200" y1="68" x2="200" y2="106" class="a"/>
-<line x1="660" y1="68" x2="660" y2="106" class="a"/>
-<rect x="140" y="106" width="120" height="50" rx="5" fill="#fff" stroke="#cdcdcd" stroke-width="1.4"/>
-<text x="200" y="126" class="l">Account Receivable</text>
-<text x="200" y="144" class="t">FD10N</text>
-<rect x="600" y="106" width="120" height="50" rx="5" fill="#fff" stroke="#cdcdcd" stroke-width="1.4"/>
-<text x="660" y="126" class="l">Account Payable</text>
-<text x="660" y="144" class="t">FK10N</text>
-<rect x="370" y="106" width="120" height="50" rx="20" fill="#f0ecdc" stroke="#b78a60" stroke-width="1.8"/>
-<text x="430" y="126" class="l" style="font-weight:700;">General Ledger</text>
-<text x="430" y="144" class="t">FS00</text>
-<line x1="260" y1="131" x2="370" y2="131" class="a"/>
-<line x1="600" y1="131" x2="490" y2="131" class="a"/>
-<line x1="200" y1="156" x2="200" y2="196" class="a"/>
-<rect x="140" y="196" width="120" height="50" rx="5" fill="#fff" stroke="#b78a60" stroke-width="1.4"/>
-<text x="200" y="216" class="l">* Dunning</text>
-<text x="200" y="231" class="l">Procedure</text>
-<text x="200" y="243" class="t">CBO</text>
-<rect x="20" y="204" width="80" height="36" rx="4" fill="#d2d2d2" stroke="#bbb" stroke-width="1.2"/>
-<text x="60" y="227" class="l">Customer</text>
-<line x1="140" y1="224" x2="100" y2="224" class="a"/>
-<rect x="140" y="320" width="120" height="48" rx="5" fill="#fff" stroke="#cdcdcd" stroke-width="1.4"/>
-<text x="200" y="339" class="l">Incoming Pay</text>
-<text x="200" y="356" class="t">F-28</text>
-<rect x="20" y="327" width="80" height="36" rx="4" fill="#d2d2d2" stroke="#bbb" stroke-width="1.2"/>
-<text x="60" y="350" class="l">Customer</text>
-<line x1="100" y1="345" x2="140" y2="345" class="a"/>
-<line x1="260" y1="344" x2="310" y2="344" class="a"/>
-<rect x="310" y="320" width="90" height="48" rx="5" fill="#fff" stroke="#cdcdcd" stroke-width="1.4"/>
-<text x="355" y="340" class="l">Clearing</text>
-<text x="355" y="356" class="t">F-32</text>
-<rect x="385" y="390" width="90" height="44" rx="5" fill="#fff" stroke="#b78a60" stroke-width="1.4"/>
-<text x="430" y="409" class="l">BS/PL</text>
-<text x="430" y="424" class="t">CBO</text>
-<rect x="460" y="320" width="90" height="48" rx="5" fill="#fff" stroke="#cdcdcd" stroke-width="1.4"/>
-<text x="505" y="340" class="l">Clearing</text>
-<text x="505" y="356" class="t">F-44</text>
-<rect x="570" y="320" width="120" height="48" rx="5" fill="#fff" stroke="#cdcdcd" stroke-width="1.4"/>
-<text x="630" y="339" class="l">Outgoing Pay</text>
-<text x="630" y="356" class="t">F-53</text>
-<line x1="550" y1="344" x2="570" y2="344" class="a"/>
-<rect x="710" y="327" width="80" height="36" rx="4" fill="#d2d2d2" stroke="#bbb" stroke-width="1.2"/>
-<text x="750" y="350" class="l">Vendor</text>
-<line x1="690" y1="344" x2="710" y2="344" class="a"/>
-<path d="M 390 156 L 355 320" stroke="#8e664a" stroke-width="1.3" stroke-dasharray="5,3" marker-end="url(#md)" fill="none"/>
-<path d="M 430 156 L 430 390" stroke="#8e664a" stroke-width="1.3" stroke-dasharray="5,3" marker-end="url(#md)" fill="none"/>
-<path d="M 470 156 L 505 320" stroke="#8e664a" stroke-width="1.3" stroke-dasharray="5,3" marker-end="url(#md)" fill="none"/>
+
+<!-- SD 원 -->
+<circle cx="220" cy="44" r="26" fill="#b5b5b5"/>
+<text x="220" y="44" class="l" dominant-baseline="middle">SD</text>
+
+<!-- MM 원 -->
+<circle cx="700" cy="44" r="26" fill="#b5b5b5"/>
+<text x="700" y="44" class="l" dominant-baseline="middle">MM</text>
+
+<!-- SD → A/R -->
+<line x1="220" y1="70" x2="220" y2="110" class="a"/>
+
+<!-- A/R -->
+<rect x="154" y="110" width="132" height="52" rx="5" fill="#fff" stroke="#cdcdcd" stroke-width="1.4"/>
+<text x="220" y="130" class="l">Account</text>
+<text x="220" y="145" class="l">Receivable</text>
+<text x="220" y="158" class="t">FD10N</text>
+
+<!-- MM → A/P -->
+<line x1="700" y1="70" x2="700" y2="110" class="a"/>
+
+<!-- A/P -->
+<rect x="634" y="110" width="132" height="52" rx="5" fill="#fff" stroke="#cdcdcd" stroke-width="1.4"/>
+<text x="700" y="130" class="l">Account</text>
+<text x="700" y="145" class="l">Payable</text>
+<text x="700" y="158" class="t">FK10N</text>
+
+<!-- General Ledger (중앙 타원) -->
+<rect x="390" y="108" width="140" height="56" rx="28" fill="#f0ecdc" stroke="#b78a60" stroke-width="1.8"/>
+<text x="460" y="132" class="l" style="font-weight:700;font-size:12px;">General Ledger</text>
+<text x="460" y="150" class="t">FS00</text>
+
+<!-- A/R → GL -->
+<line x1="286" y1="136" x2="390" y2="136" class="a"/>
+
+<!-- A/P → GL -->
+<line x1="634" y1="136" x2="530" y2="136" class="a"/>
+
+<!-- A/R → Dunning Procedure -->
+<line x1="220" y1="162" x2="220" y2="202" class="a"/>
+
+<!-- Dunning Procedure -->
+<rect x="154" y="202" width="132" height="52" rx="5" fill="#fff" stroke="#b78a60" stroke-width="1.4"/>
+<text x="220" y="222" class="l">* Dunning</text>
+<text x="220" y="237" class="l">Procedure</text>
+<text x="220" y="250" class="t">CBO</text>
+
+<!-- Dunning → Customer (왼쪽) -->
+<line x1="154" y1="228" x2="110" y2="228" class="a"/>
+<rect x="22" y="212" width="88" height="36" rx="4" fill="#d2d2d2" stroke="#bbb" stroke-width="1.2"/>
+<text x="66" y="235" class="l">Customer</text>
+
+<!-- 하단 가로 흐름 -->
+<!-- Customer (하단) -->
+<rect x="22" y="342" width="88" height="36" rx="4" fill="#d2d2d2" stroke="#bbb" stroke-width="1.2"/>
+<text x="66" y="365" class="l">Customer</text>
+
+<!-- Customer → Incoming Pay -->
+<line x1="110" y1="360" x2="152" y2="360" class="a"/>
+
+<!-- Incoming Pay -->
+<rect x="152" y="338" width="112" height="48" rx="5" fill="#fff" stroke="#cdcdcd" stroke-width="1.4"/>
+<text x="208" y="358" class="l">Incoming Pay</text>
+<text x="208" y="375" class="t">F-28</text>
+
+<!-- Incoming Pay → Clearing F-32 -->
+<line x1="264" y1="362" x2="306" y2="362" class="a"/>
+
+<!-- Clearing F-32 -->
+<rect x="306" y="338" width="106" height="48" rx="5" fill="#fff" stroke="#cdcdcd" stroke-width="1.4"/>
+<text x="359" y="358" class="l">Clearing</text>
+<text x="359" y="375" class="t">F-32</text>
+
+<!-- Clearing F-32 → GL (실선 위로) -->
+<line x1="359" y1="338" x2="430" y2="164" class="a"/>
+
+<!-- Outgoing Pay -->
+<rect x="642" y="338" width="112" height="48" rx="5" fill="#fff" stroke="#cdcdcd" stroke-width="1.4"/>
+<text x="698" y="358" class="l">Outgoing Pay</text>
+<text x="698" y="375" class="t">F-53</text>
+
+<!-- Outgoing Pay → Vendor -->
+<line x1="754" y1="362" x2="800" y2="362" class="a"/>
+
+<!-- Vendor -->
+<rect x="800" y="342" width="88" height="36" rx="4" fill="#d2d2d2" stroke="#bbb" stroke-width="1.2"/>
+<text x="844" y="365" class="l">Vendor</text>
+
+<!-- Clearing F-44 -->
+<rect x="506" y="338" width="106" height="48" rx="5" fill="#fff" stroke="#cdcdcd" stroke-width="1.4"/>
+<text x="559" y="358" class="l">Clearing</text>
+<text x="559" y="375" class="t">F-44</text>
+
+<!-- Outgoing Pay → Clearing F-44 -->
+<line x1="642" y1="362" x2="612" y2="362" class="a"/>
+
+<!-- Clearing F-44 → GL (실선 위로) -->
+<line x1="559" y1="338" x2="490" y2="164" class="a"/>
+
+<!-- BS/PL (GL 아래 중앙) -->
+<rect x="400" y="390" width="120" height="46" rx="5" fill="#fff" stroke="#cdcdcd" stroke-width="1.4"/>
+<text x="460" y="410" class="l">BS/PL</text>
+<text x="460" y="427" class="t">CBO</text>
+
+<!-- GL → BS/PL (실선) -->
+<line x1="460" y1="164" x2="460" y2="390" class="a"/>
+
+<!-- GL → Incoming Pay (점선) -->
+<path d="M 420 164 L 208 386" class="ad"/>
+
+<!-- GL → Outgoing Pay (점선) -->
+<path d="M 500 164 L 698 386" class="ad"/>
+
 </svg>`;
 
 function openModule(mod) {
